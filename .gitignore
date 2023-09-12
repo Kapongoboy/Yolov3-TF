@@ -1,3 +1,9 @@
 *.pyc
 model_data
 configs.py
+mnist/
+dataset/
+.vscode/
+OIDv4_ToolKit/
+checkpoints/
+Images/
