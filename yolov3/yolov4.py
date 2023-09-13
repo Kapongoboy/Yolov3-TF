@@ -10,8 +10,8 @@
 #================================================================
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.layers import Conv2D, Input, LeakyReLU, ZeroPadding2D, BatchNormalization, MaxPool2D
-from tensorflow.keras.regularizers import l2
+from keras.layers import Conv2D, Input, LeakyReLU, ZeroPadding2D, BatchNormalization, MaxPool2D
+from keras.regularizers import l2
 from yolov3.configs import *
 
 STRIDES         = np.array(YOLO_STRIDES)

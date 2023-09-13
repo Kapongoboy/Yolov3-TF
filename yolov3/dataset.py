@@ -128,6 +128,7 @@ class Dataset(object):
                     if index >= self.num_samples: index -= self.num_samples
                     annotation = self.annotations[index]
                     image, bboxes = self.parse_annotation(annotation)
+                    # print(f"image: {image}, bboxes: {bboxes}")
                     try:
                         if self.train_yolo_tiny:
                             label_mbbox, label_lbbox, mbboxes, lbboxes = self.preprocess_true_boxes(bboxes)
@@ -251,7 +252,7 @@ class Dataset(object):
             bbox_coor = bbox[:4]
             bbox_class_ind = bbox[4]
 
-            onehot = np.zeros(self.num_classes, dtype=np.float)
+            onehot = np.zeros(self.num_classes, dtype=float)
             onehot[bbox_class_ind] = 1.0
             uniform_distribution = np.full(self.num_classes, 1.0 / self.num_classes)
             deta = 0.01

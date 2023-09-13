@@ -56,7 +56,7 @@ def main():
     yolo = Create_Yolo(input_size=YOLO_INPUT_SIZE, training=True, CLASSES=TRAIN_CLASSES)
     if TRAIN_FROM_CHECKPOINT:
         try:
-            yolo.load_weights(f"./checkpoints/{TRAIN_MODEL_NAME}")
+            yolo.load_weights(f"./checkpoints/yolov3_custom_Tiny.data-00000-of-00001")
         except ValueError:
             print("Shapes are incompatible, transfering Darknet weights")
             TRAIN_FROM_CHECKPOINT = False
@@ -144,7 +144,7 @@ def main():
 
         if len(testset) == 0:
             print("configure TEST options to validate model")
-            yolo.save_weights(os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME))
+            yolo.save_weights(os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME)+".data-00000-of-00001", save_format="h5")
             continue
         
         count, giou_val, conf_val, prob_val, total_val = 0., 0, 0, 0, 0
@@ -168,18 +168,18 @@ def main():
 
         if TRAIN_SAVE_CHECKPOINT and not TRAIN_SAVE_BEST_ONLY:
             save_directory = os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME+"_val_loss_{:7.2f}".format(total_val/count))
-            yolo.save_weights(save_directory)
+            yolo.save_weights(save_directory, save_format="h5")
         if TRAIN_SAVE_BEST_ONLY and best_val_loss>total_val/count:
             save_directory = os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME)
-            yolo.save_weights(save_directory)
+            yolo.save_weights(save_directory, save_format="h5")
             best_val_loss = total_val/count
         if not TRAIN_SAVE_BEST_ONLY and not TRAIN_SAVE_CHECKPOINT:
             save_directory = os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME)
-            yolo.save_weights(save_directory)
+            yolo.save_weights(save_directory, save_format="h5")
 
     # measure mAP of trained custom model
     try:
-        mAP_model.load_weights(save_directory) # use keras weights
+        mAP_model.load_weights("./checkpoints/yolov_custom_Tiny.data-00000-of-00001") # use keras weights
         get_mAP(mAP_model, testset, score_threshold=TEST_SCORE_THRESHOLD, iou_threshold=TEST_IOU_THRESHOLD)
     except UnboundLocalError:
         print("You don't have saved model weights to measure mAP, check TRAIN_SAVE_BEST_ONLY and TRAIN_SAVE_CHECKPOINT lines in configs.py")

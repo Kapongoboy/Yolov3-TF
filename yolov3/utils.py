@@ -445,8 +445,8 @@ def detect_video(Yolo, video_path, output_path, input_size=416, show=False, CLAS
     width = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = int(vid.get(cv2.CAP_PROP_FPS))
-    codec = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(output_path, codec, fps, (width, height)) # output_path must be .mp4
+    # codec = cv2.VideWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter(output_path, 1983148141, fps, (width, height)) # output_path must be .mp4
 
     while True:
         _, img = vid.read()
@@ -511,7 +511,7 @@ def detect_video(Yolo, video_path, output_path, input_size=416, show=False, CLAS
 # detect from webcam
 def detect_realtime(Yolo, output_path, input_size=416, show=False, CLASSES=YOLO_COCO_CLASSES, score_threshold=0.3, iou_threshold=0.45, rectangle_colors=''):
     times = []
-    vid = cv2.VideoCapture(1)
+    vid = cv2.VideoCapture(0)
 
     if output_path:
         # by default VideoCapture returns float instead of int
