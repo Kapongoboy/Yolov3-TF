@@ -144,7 +144,7 @@ def main():
 
         if len(testset) == 0:
             print("configure TEST options to validate model")
-            yolo.save_weights(os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME)+".data-00000-of-00001", save_format="h5")
+            yolo.save_weights(os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME)+".data-00000-of-00001.h5", save_format="h5")
             continue
         
         count, giou_val, conf_val, prob_val, total_val = 0., 0, 0, 0, 0
@@ -167,7 +167,7 @@ def main():
               format(giou_val/count, conf_val/count, prob_val/count, total_val/count))
 
         if TRAIN_SAVE_CHECKPOINT and not TRAIN_SAVE_BEST_ONLY:
-            save_directory = os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME+"_val_loss_{:7.2f}".format(total_val/count))
+            save_directory = os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME+"_val_loss_{:7.2f}.h5".format(total_val/count))
             yolo.save_weights(save_directory, save_format="h5")
         if TRAIN_SAVE_BEST_ONLY and best_val_loss>total_val/count:
             save_directory = os.path.join(TRAIN_CHECKPOINTS_FOLDER, TRAIN_MODEL_NAME)
@@ -179,7 +179,7 @@ def main():
 
     # measure mAP of trained custom model
     try:
-        mAP_model.load_weights("./checkpoints/yolov_custom_Tiny.data-00000-of-00001") # use keras weights
+        mAP_model.load_weights("./checkpoints/yolov3_custom_Tiny.data-00000-of-00001.h5") # use keras weights
         get_mAP(mAP_model, testset, score_threshold=TEST_SCORE_THRESHOLD, iou_threshold=TEST_IOU_THRESHOLD)
     except UnboundLocalError:
         print("You don't have saved model weights to measure mAP, check TRAIN_SAVE_BEST_ONLY and TRAIN_SAVE_CHECKPOINT lines in configs.py")

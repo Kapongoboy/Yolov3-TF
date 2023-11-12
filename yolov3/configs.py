@@ -51,8 +51,8 @@ TRAIN_TRANSFER              = True
 TRAIN_FROM_CHECKPOINT       = False # "checkpoints/yolov3_custom"
 TRAIN_LR_INIT               = 1e-3
 TRAIN_LR_END                = 1e-5
-TRAIN_WARMUP_EPOCHS         = 2
-TRAIN_EPOCHS                = 50
+TRAIN_WARMUP_EPOCHS         = 1
+TRAIN_EPOCHS                = 3
 
 # TEST options
 TEST_ANNOT_PATH             = "./dataset/dataset_test.txt"

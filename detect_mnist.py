@@ -19,15 +19,16 @@ from yolov3.yolov4 import Create_Yolo
 from yolov3.utils import detect_image
 from yolov3.configs import *
 
-while True:
-    ID = random.randint(0, 200)
-    label_txt = "./dataset/dataset_test.txt"
-    image_info = open(label_txt).readlines()[ID].split()
+# while True:
+ID = random.randint(0, 200)
+label_txt = "./dataset/dataset_test.txt"
+# image_info = open(label_txt).readlines()[ID].split()
+path = Path("~/Downloads/generated_dataset/train/resized_patterns_2_r0_f1.png").expanduser()
+# image_path = image_info[0]
+image_path = str(path)
 
-    image_path = image_info[0]
-
-    yolo = Create_Yolo(input_size=YOLO_INPUT_SIZE, CLASSES=TRAIN_CLASSES)
-    yolo.load_weights("/home/plamedi/Documents/repos/pocket/TensorFlow-2.x-YOLOv3/checkpoints/yolov3_custom_Tiny.data-00000-of-00001") # use keras weights
-    yolo.save("./checkpoints/yolobolo.keras")
-
-    detect_image(yolo, image_path, "example_test.jpg", input_size=YOLO_INPUT_SIZE, show=True, CLASSES=TRAIN_CLASSES, rectangle_colors=(255,0,0))
+yolo = Create_Yolo(input_size=YOLO_INPUT_SIZE, CLASSES=TRAIN_CLASSES)
+yolo.load_weights("/home/plamedi/Documents/repos/pocket/TensorFlow-2.x-YOLOv3/checkpoints/yolov3_custom_Tiny.data-00000-of-00001.h5") # use keras weights
+# yolo.save("./checkpoints/yolobolo.keras")
+image_path   = "/home/plamedi/Downloads/generated_dataset/train/resized_patterns_1_r0_f3.png"
+detect_image(yolo, image_path, "example_test.jpg", input_size=YOLO_INPUT_SIZE, show=True, CLASSES=TRAIN_CLASSES, rectangle_colors=(255,0,0))

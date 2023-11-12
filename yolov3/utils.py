@@ -18,6 +18,8 @@ import tensorflow as tf
 from yolov3.configs import *
 from yolov3.yolov4 import *
 from tensorflow.python.saved_model import tag_constants
+from keras.models import Model
+import matplotlib.pyplot as plt
 
 def load_yolo_weights(model, weights_file):
     tf.keras.backend.clear_session() # used to reset layer names
@@ -286,6 +288,15 @@ def detect_image(Yolo, image_path, output_path, input_size=416, show=False, CLAS
     image_data = image_preprocess(np.copy(original_image), [input_size, input_size])
     image_data = image_data[np.newaxis, ...].astype(np.float32)
 
+    layer_slice = Model(inputs=Yolo.input, outputs=Yolo.layers[17].output)
+    layer_output = layer_slice.predict(image_data)
+    print(f"\n{layer_slice.layers[-1].name} shape: {layer_output.shape}\n, datatype : {layer_output.dtype}\n")
+    arr = layer_output[0, 0, 0, :10]
+    # title = "tenten"
+    # plt.title(title)
+    # plt.imshow(arr, vmin=0, vmax=255)
+    # plt.show()
+
     if YOLO_FRAMEWORK == "tf":
         pred_bbox = Yolo.predict(image_data)
     elif YOLO_FRAMEWORK == "trt":
@@ -295,10 +306,12 @@ def detect_image(Yolo, image_path, output_path, input_size=416, show=False, CLAS
         for key, value in result.items():
             value = value.numpy()
             pred_bbox.append(value)
-        
     pred_bbox = [tf.reshape(x, (-1, tf.shape(x)[-1])) for x in pred_bbox]
     pred_bbox = tf.concat(pred_bbox, axis=0)
-    
+
+    # pred_bbox = np.fromfile(str(Path("~/Downloads/weights/prediction.data").expanduser()), dtype=np.float32).reshape((2535, 8))
+    print(pred_bbox[0, :])
+
     bboxes = postprocess_boxes(pred_bbox, original_image, input_size, score_threshold)
     bboxes = nms(bboxes, iou_threshold, method='nms')
 

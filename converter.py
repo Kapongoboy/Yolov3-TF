@@ -36,13 +36,14 @@ def load_h5_weights(weights_file: Path):
                 # tf weights: [gamma, beta, mean, variance]
                 bn_layer = model.get_layer(bn_layer_name)
                 bn_weights = np.array(bn_layer.get_weights(), dtype=np.float32)
+                print(bn_weights)
                 j += 1
             else:
                 conv_bias = np.array(conv_layer.get_weights()[1], dtype=np.float32)
 
             # darknet shape (out_dim, in_dim, height, width)
             conv_weights = np.array(conv_layer.get_weights()[0], dtype=np.float32).transpose([3, 2, 0, 1])
-            print(f"kernels: \n{conv_weights}\n")
+            # print(f"kernels: \n{conv_weights}\n")
             # tf shape (height, width, in_dim, out_dim)
 
             if i not in range2:
