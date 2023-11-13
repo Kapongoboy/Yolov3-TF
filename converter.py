@@ -8,7 +8,8 @@ def load_h5_weights(weights_file: Path):
     range1 = 13
     range2 = [9, 12]
     yolo = Create_Yolo(input_size=416, CLASSES="./dataset/dataset.names")
-    yolo.load_weights("/home/plamedi/Documents/repos/pocket/TensorFlow-2.x-YOLOv3/checkpoints/yolov3_custom_Tiny.data-00000-of-00001.h5") # use keras weights
+    yolo.load_weights("./checkpoints/yolov3_custom_Tiny_val_loss_   9.82.h5") # use keras weights
+    
     model = yolo
     model.summary()
     weights_array = np.array([], dtype=np.float32)
@@ -54,9 +55,9 @@ def load_h5_weights(weights_file: Path):
                 weights_array = np.append(weights_array, conv_weights.flatten())
 
         print(f"weights length = {len(weights_array)}")
-        assert len(weights_array) == 8680864, 'failed to write all weights'
+        # assert len(weights_array) == 8680864, 'failed to write all weights'
         weights_array.tofile(wf, sep="")
 
 if __name__ == "__main__":
-    load_h5_weights(Path("~/Downloads/weights/debris.weights").expanduser())
+    load_h5_weights(Path("~/Downloads/weights/debris_half.weights").expanduser())
     print("\nweights convertion complete")

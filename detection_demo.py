@@ -25,6 +25,6 @@ video_path   = Path("/home/plamedi/Downloads/canadian_road.mp4")
 yolo = Load_Yolo_model()
 # detect_image(yolo, image_path, "./IMAGES/kite_pred.jpg", input_size=YOLO_INPUT_SIZE, show=True, rectangle_colors=(255,0,0))
 # detect_video(yolo, str(video_path), "./IMAGES/detected.mp4", input_size=YOLO_INPUT_SIZE, show=False, rectangle_colors=(255,0,0))
-detect_realtime(yolo, '', input_size=YOLO_INPUT_SIZE, show=True, rectangle_colors=(255, 0, 0))
+detect_realtime(yolo, '', input_size=YOLO_INPUT_SIZE, show=True, rectangle_colors=(255, 0, 0), CLASSES=TRAIN_CLASSES)
 
 #detect_video_realtime_mp(video_path, "Output.mp4", input_size=YOLO_INPUT_SIZE, show=False, rectangle_colors=(255,0,0), realtime=False)

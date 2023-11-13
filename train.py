@@ -51,7 +51,7 @@ def main():
 
     if TRAIN_TRANSFER:
         Darknet = Create_Yolo(input_size=YOLO_INPUT_SIZE, CLASSES=YOLO_COCO_CLASSES)
-        load_yolo_weights(Darknet, Darknet_weights) # use darknet weights
+        # load_yolo_weights(Darknet, Darknet_weights) # use darknet weights
 
     yolo = Create_Yolo(input_size=YOLO_INPUT_SIZE, training=True, CLASSES=TRAIN_CLASSES)
     if TRAIN_FROM_CHECKPOINT:

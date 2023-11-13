@@ -15,7 +15,8 @@ YOLO_TYPE                   = "yolov3" # yolov4 or yolov3
 YOLO_FRAMEWORK              = "tf" # "tf" or "trt"
 YOLO_V3_WEIGHTS             = "model_data/yolov3.weights"
 YOLO_V4_WEIGHTS             = "model_data/yolov4.weights"
-YOLO_V3_TINY_WEIGHTS        = "model_data/yolov3-tiny.weights"
+# YOLO_V3_TINY_WEIGHTS        = "model_data/yolov3-tiny.weights"
+YOLO_V3_TINY_WEIGHTS        = "/home/plamedi/Downloads/weights/debris_half.weights"
 YOLO_V4_TINY_WEIGHTS        = "model_data/yolov4-tiny.weights"
 YOLO_TRT_QUANTIZE_MODE      = "INT8" # INT8, FP16, FP32
 YOLO_CUSTOM_WEIGHTS         = False # "checkpoints/yolov3_custom" # used in evaluate_mAP.py and custom model detection, if not using leave False
@@ -36,8 +37,8 @@ if YOLO_TYPE                == "yolov3":
                                [[116, 90], [156, 198], [373, 326]]]
 # Train options
 TRAIN_YOLO_TINY             = True
-TRAIN_SAVE_BEST_ONLY        = True # saves only best model according validation loss (True recommended)
-TRAIN_SAVE_CHECKPOINT       = False # saves all best validated checkpoints in training process (may require a lot disk space) (False recommended)
+TRAIN_SAVE_BEST_ONLY        = False # saves only best model according validation loss (True recommended)
+TRAIN_SAVE_CHECKPOINT       = True # saves all best validated checkpoints in training process (may require a lot disk space) (False recommended)
 TRAIN_CLASSES               = "./dataset/dataset.names"
 TRAIN_ANNOT_PATH            = "./dataset/dataset_train.txt"
 TRAIN_LOGDIR                = "log"
@@ -51,8 +52,8 @@ TRAIN_TRANSFER              = True
 TRAIN_FROM_CHECKPOINT       = False # "checkpoints/yolov3_custom"
 TRAIN_LR_INIT               = 1e-3
 TRAIN_LR_END                = 1e-5
-TRAIN_WARMUP_EPOCHS         = 1
-TRAIN_EPOCHS                = 3
+TRAIN_WARMUP_EPOCHS         = 8
+TRAIN_EPOCHS                = 100
 
 # TEST options
 TEST_ANNOT_PATH             = "./dataset/dataset_test.txt"

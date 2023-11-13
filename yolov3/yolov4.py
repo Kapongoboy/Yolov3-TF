@@ -179,20 +179,20 @@ def cspdarknet53(input_data):
     return route_1, route_2, input_data
 
 def darknet19_tiny(input_data):
-    input_data = convolutional(input_data, (3, 3, 3, 16))
+    input_data = convolutional(input_data, (3, 3, 3, 8))
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 16, 32))
+    input_data = convolutional(input_data, (3, 3, 16, 16))
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 32, 64))
+    input_data = convolutional(input_data, (3, 3, 32, 32))
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 64, 128))
+    input_data = convolutional(input_data, (3, 3, 64, 64))
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 128, 256))
+    input_data = convolutional(input_data, (3, 3, 128, 128))
     route_1 = input_data
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 256, 512))
+    input_data = convolutional(input_data, (3, 3, 256, 256))
     input_data = MaxPool2D(2, 1, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 512, 1024))
+    input_data = convolutional(input_data, (3, 3, 512, 512))
 
     return route_1, input_data
 
@@ -346,21 +346,21 @@ def YOLOv3_tiny(input_layer, NUM_CLASS):
     # After the input layer enters the Darknet-53 network, we get three branches
     route_1, conv = darknet19_tiny(input_layer)
 
-    conv = convolutional(conv, (1, 1, 1024, 256))
-    conv_lobj_branch = convolutional(conv, (3, 3, 256, 512))
+    conv = convolutional(conv, (1, 1, 512, 128))
+    conv_lobj_branch = convolutional(conv, (3, 3, 128, 256))
     
     # conv_lbbox is used to predict large-sized objects , Shape = [None, 26, 26, 255]
-    conv_lbbox = convolutional(conv_lobj_branch, (1, 1, 512, 3*(NUM_CLASS + 5)), activate=False, bn=False)
+    conv_lbbox = convolutional(conv_lobj_branch, (1, 1, 256, 3*(NUM_CLASS + 5)), activate=False, bn=False)
 
-    conv = convolutional(conv, (1, 1, 256, 128))
+    conv = convolutional(conv, (1, 1, 128, 64))
     # upsample here uses the nearest neighbor interpolation method, which has the advantage that the
     # upsampling process does not need to learn, thereby reducing the network parameter  
     conv = upsample(conv)
     
     conv = tf.concat([conv, route_1], axis=-1)
-    conv_mobj_branch = convolutional(conv, (3, 3, 128, 256))
+    conv_mobj_branch = convolutional(conv, (3, 3, 64, 128))
     # conv_mbbox is used to predict medium size objects, shape = [None, 13, 13, 255]
-    conv_mbbox = convolutional(conv_mobj_branch, (1, 1, 256, 3 * (NUM_CLASS + 5)), activate=False, bn=False)
+    conv_mbbox = convolutional(conv_mobj_branch, (1, 1, 128, 3 * (NUM_CLASS + 5)), activate=False, bn=False)
 
     return [conv_mbbox, conv_lbbox]
 
