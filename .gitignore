@@ -9,4 +9,5 @@ checkpoints/
 Images/
 .idea/
 **/checkpoints/
+**/checkpoints.bak/
 **/logs/
