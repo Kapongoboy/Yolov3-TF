@@ -92,7 +92,7 @@ def Load_Yolo_model():
             print("Loading Darknet_weights from:", Darknet_weights)
             yolo = Create_Yolo(input_size=YOLO_INPUT_SIZE, CLASSES=TRAIN_CLASSES)
             # load_yolo_weights(yolo, Darknet_weights) # use Darknet weights
-            yolo.load_weights("/home/plamedi/Documents/repos/pocket/TensorFlow-2.x-YOLOv3/checkpoints/yolov3_custom_Tiny_val_loss_   9.82.h5")
+            yolo.load_weights("/home/plamedi/Documents/repos/pocket/TensorFlow-2.x-YOLOv3/checkpoints/yolov3_custom_Tiny_val_loss_  10.01.h5")
         else:
             checkpoint = f"./checkpoints/{TRAIN_MODEL_NAME}"
             if TRAIN_YOLO_TINY:

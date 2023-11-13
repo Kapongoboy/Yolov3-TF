@@ -181,18 +181,20 @@ def cspdarknet53(input_data):
 def darknet19_tiny(input_data):
     input_data = convolutional(input_data, (3, 3, 3, 8))
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 16, 16))
+    input_data = convolutional(input_data, (3, 3, 8, 16))
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 32, 32))
+    input_data = convolutional(input_data, (3, 3, 16, 32))
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 64, 64))
+    input_data = convolutional(input_data, (3, 3, 32, 64))
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 128, 128))
+    input_data = convolutional(input_data, (3, 3, 64, 128))
     route_1 = input_data
+    # route_1 = upsample(route_1)
+    # input_data = upsample(input_data)
     input_data = MaxPool2D(2, 2, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 256, 256))
+    input_data = convolutional(input_data, (3, 3, 128, 256))
     input_data = MaxPool2D(2, 1, 'same')(input_data)
-    input_data = convolutional(input_data, (3, 3, 512, 512))
+    input_data = convolutional(input_data, (3, 3, 256, 512))
 
     return route_1, input_data
 
