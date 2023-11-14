@@ -16,7 +16,7 @@ YOLO_FRAMEWORK              = "tf" # "tf" or "trt"
 YOLO_V3_WEIGHTS             = "model_data/yolov3.weights"
 YOLO_V4_WEIGHTS             = "model_data/yolov4.weights"
 # YOLO_V3_TINY_WEIGHTS        = "model_data/yolov3-tiny.weights"
-YOLO_V3_TINY_WEIGHTS        = "/home/plamedi/Downloads/weights/debris_half.weights"
+YOLO_V3_TINY_WEIGHTS        = "/home/plamedi/Downloads/weights/debris_extremem.weights"
 YOLO_V4_TINY_WEIGHTS        = "model_data/yolov4-tiny.weights"
 YOLO_TRT_QUANTIZE_MODE      = "INT8" # INT8, FP16, FP32
 YOLO_CUSTOM_WEIGHTS         = False # "checkpoints/yolov3_custom" # used in evaluate_mAP.py and custom model detection, if not using leave False
@@ -52,8 +52,8 @@ TRAIN_TRANSFER              = True
 TRAIN_FROM_CHECKPOINT       = False # "checkpoints/yolov3_custom"
 TRAIN_LR_INIT               = 1e-3
 TRAIN_LR_END                = 1e-5
-TRAIN_WARMUP_EPOCHS         = 8
-TRAIN_EPOCHS                = 100
+TRAIN_WARMUP_EPOCHS         = 16
+TRAIN_EPOCHS                = 200
 
 # TEST options
 TEST_ANNOT_PATH             = "./dataset/dataset_test.txt"

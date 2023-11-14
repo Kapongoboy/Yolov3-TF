@@ -92,7 +92,7 @@ def Load_Yolo_model():
             print("Loading Darknet_weights from:", Darknet_weights)
             yolo = Create_Yolo(input_size=YOLO_INPUT_SIZE, CLASSES=TRAIN_CLASSES)
             # load_yolo_weights(yolo, Darknet_weights) # use Darknet weights
-            yolo.load_weights("/home/plamedi/Documents/repos/pocket/TensorFlow-2.x-YOLOv3/checkpoints/yolov3_custom_Tiny_val_loss_  10.01.h5")
+            yolo.load_weights("/home/plamedi/Documents/repos/pocket/TensorFlow-2.x-YOLOv3/checkpoints/yolov3_custom_Tiny_val_loss_   8.73.h5")
         else:
             checkpoint = f"./checkpoints/{TRAIN_MODEL_NAME}"
             if TRAIN_YOLO_TINY:
@@ -109,6 +109,8 @@ def Load_Yolo_model():
     return yolo
 
 def image_preprocess(image, target_size, gt_boxes=None):
+    # mean = [0.485, 0.456, 0.406]
+    # std = [0.229, 0.224, 0.225]
     ih, iw    = target_size
     h,  w, _  = image.shape
 
@@ -120,6 +122,7 @@ def image_preprocess(image, target_size, gt_boxes=None):
     dw, dh = (iw - nw) // 2, (ih-nh) // 2
     image_paded[dh:nh+dh, dw:nw+dw, :] = image_resized
     image_paded = image_paded / 255.
+    # image_paded = (image_paded - mean) / std
 
     if gt_boxes is None:
         return image_paded
